@@ -1,0 +1,4 @@
+suites:
+    default:
+        namespace: War
+        psr4_prefix: War
