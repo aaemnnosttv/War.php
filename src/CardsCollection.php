@@ -11,7 +11,7 @@ class CardsCollection extends Collection
         $this->items = [];
     }
 
-    public static function from(Card ... $cards)
+    public static function from(... $cards)
     {
         return new static($cards);
     }
