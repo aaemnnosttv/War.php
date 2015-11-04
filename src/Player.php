@@ -7,7 +7,7 @@ use War\Exceptions\NoCardsToPlayException;
 class Player
 {
     /* @string */
-    private $name;
+    public $name;
 
     /* @var CardsCollection */
     private $cards;
