@@ -2,6 +2,7 @@
 
 namespace War;
 
+use Illuminate\Support\Collection;
 use War\Exceptions\NoCardsToPlayException;
 
 class Game
@@ -26,6 +27,10 @@ class Game
      * @var Dealer
      */
     private $dealer;
+    /**
+     * @var Collection
+     */
+    private $rounds;
 
     /**
      * Game constructor.
@@ -41,6 +46,7 @@ class Game
         $this->player1 = $player1;
         $this->player2 = $player2;
         $this->dealer = $dealer;
+        $this->rounds = new Collection;
     }
 
     public function play()
@@ -65,6 +71,11 @@ class Game
         return $this->loser;
     }
 
+    public function rounds()
+    {
+        return $this->rounds;
+    }
+
     protected function endGame()
     {
         $this->loser = ! $this->player1->hasCards()
@@ -87,7 +98,8 @@ class Game
     protected function playRound()
     {
         $battle = new Battle($this->player1, $this->player2);
-
+        $this->rounds->push($battle);
+        
         try
         {
             $battle->fight();
