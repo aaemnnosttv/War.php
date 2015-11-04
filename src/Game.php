@@ -38,8 +38,6 @@ class Game
      * @param Player $player1
      * @param Player $player2
      * @param Dealer $dealer
-     *
-     * @internal param Deck $deck
      */
     public function __construct(Player $player1, Player $player2, Dealer $dealer)
     {
