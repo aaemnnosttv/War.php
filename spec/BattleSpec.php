@@ -17,11 +17,6 @@ class BattleSpec extends ObjectBehavior
         $this->beConstructedWith($player1, $player2);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('War\Battle');
-    }
-
     function it_accepts_two_players_and_evaluates_the_victor()
     {
         $player1 = new Player('One', [new Card('A', 'spades')]);

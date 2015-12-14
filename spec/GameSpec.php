@@ -23,11 +23,6 @@ class GameSpec extends ObjectBehavior
         );
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('War\Game');
-    }
-
     function it_plays_until_one_player_has_no_more_cards()
     {
         $this->play();
