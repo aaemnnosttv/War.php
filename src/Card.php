@@ -35,7 +35,7 @@ class Card
     public function value()
     {
         return is_numeric($this->face)
-            ? (int) $this->face
+            ? (int)$this->face
             : array_get($this->faceLookup, $this->face);
     }
 }

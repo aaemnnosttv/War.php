@@ -29,7 +29,7 @@ class DealerSpec extends ObjectBehavior
         $card1 = new Card('A', 'spades');
         $card2 = new Card('J', 'hearts');
 
-        $this->beConstructedWith(new Deck(CardsCollection::from($card1,$card2)));
+        $this->beConstructedWith(new Deck(CardsCollection::from($card1, $card2)));
 
         $player1->acceptCard($card1)->shouldBeCalledTimes(1);
         $player2->acceptCard($card2)->shouldBeCalledTimes(1);

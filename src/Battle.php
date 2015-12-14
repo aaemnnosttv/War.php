@@ -7,15 +7,19 @@ class Battle
     /**
      * @var Player
      */
-    private $player1;
+    protected $player1;
     /**
      * @var Player
      */
-    private $player2;
+    protected $player2;
     /**
      * @var Player
      */
-    private $victor;
+    protected $victor;
+    /**
+     * @var CardsCollection
+     */
+    protected $pairs;
 
     /**
      * Battle constructor.
@@ -27,47 +31,62 @@ class Battle
     {
         $this->player1 = $player1;
         $this->player2 = $player2;
-        $this->cards = new CardsCollection();
+        $this->pairs   = new CardsCollection();
     }
 
+    /**
+     * Takes a card from each player and compares them to
+     * determine the victor
+     *
+     * @return $this
+     */
     public function fight()
     {
-        if ($this->victor instanceof Player) {
-            return $this;
-        }
+        $pair = $this->takePair();
 
-        $p1Card = $this->player1->playCard();
-        $p2Card = $this->player2->playCard();
-
-        $this->take($p1Card, $p2Card);
-
-        if ($p1Card->value() > $p2Card->value()) {
+        if ($pair->player1 === $pair->highCard()) {
             $this->victor = $this->player1;
-            return $this;
         }
-        if ($p1Card->value() < $p2Card->value()) {
+        if ($pair->player2 === $pair->highCard()) {
             $this->victor = $this->player2;
-            return $this;
         }
 
-//        $this->victor = false;
-        // WAR!
-        // One card "down" for each player, then we fight again
-        $this->take($this->player1->playCard(), $this->player2->playCard());
-        $this->fight();
+        return $this;
     }
 
-    protected function take(Card $card1, Card $card2)
+    /**
+     * Takes one card from each player and creates a new Card pair
+     *
+     * @return CardPair
+     */
+    protected function takePair()
     {
-        $this->cards->push($card1);
-        $this->cards->push($card2);
+        $pair = new CardPair($this->player1, $this->player2);
+        $this->pairs->push($pair);
+
+        return $pair;
     }
 
+    /**
+     * Transform the CardPairs into a flat collection
+     *
+     * @return CardsCollection
+     */
     public function collect()
     {
-        return $this->cards->all();
+        return $this->pairs
+            ->map(function ($pair) {
+                return $pair->toArray();
+            })
+            ->flatten()
+            ;
     }
 
+    /**
+     * Get the victor of the battle
+     *
+     * @return Player
+     */
     public function victor()
     {
         return $this->victor;

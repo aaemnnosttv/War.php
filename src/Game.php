@@ -43,16 +43,15 @@ class Game
     {
         $this->player1 = $player1;
         $this->player2 = $player2;
-        $this->dealer = $dealer;
-        $this->rounds = new Collection;
+        $this->dealer  = $dealer;
+        $this->rounds  = new Collection;
     }
 
     public function play()
     {
-        $this->dealer->shuffle()->deal($this->player1, $this->player2);
+        $this->dealer->deal($this->player1, $this->player2);
 
-        while($this->playersHaveCards())
-        {
+        while ($this->playersHaveCards()) {
             $this->playRound();
         }
 
@@ -95,16 +94,13 @@ class Game
 
     protected function playRound()
     {
-        $battle = new Battle($this->player1, $this->player2);
-        $this->rounds->push($battle);
-        
-        try
-        {
-            $battle->fight();
-            $battle->victor()->won($battle);
-        }
-        catch ( NoCardsToPlayException $e )
-        {
+        $round = new Round($this->player1, $this->player2);
+
+        try {
+            $round->play();
+            $round->victor()->capture($round->cardsPlayed());
+            $this->rounds->push($round);
+        } catch (NoCardsToPlayException $e) {
             $this->endGame();
         }
     }

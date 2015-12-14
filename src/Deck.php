@@ -12,15 +12,24 @@ class Deck extends CardsCollection
     ];
 
     protected static $faces = [
-        '2','3','4','5','6','7','8','9','10','J','Q','K','A'
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        'J',
+        'Q',
+        'K',
+        'A'
     ];
 
-
-    public function cards()
-    {
-        return $this->all();
-    }
-
+    /**
+     * @return bool
+     */
     public function hasCards()
     {
         return ! $this->isEmpty();
@@ -33,10 +42,8 @@ class Deck extends CardsCollection
     {
         $deck = new static();
 
-        foreach ( static::$suits as $suit )
-        {
-            foreach ( static::$faces as $face )
-            {
+        foreach (static::$suits as $suit) {
+            foreach (static::$faces as $face) {
                 $deck->push(new Card($face, $suit));
             }
         }

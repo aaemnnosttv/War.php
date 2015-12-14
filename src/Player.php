@@ -2,6 +2,7 @@
 
 namespace War;
 
+use Illuminate\Support\Collection;
 use War\Exceptions\NoCardsToPlayException;
 
 class Player
@@ -21,41 +22,58 @@ class Player
      * @param       $name
      * @param array $cards
      */
-    public function __construct( $name, array $cards = [] )
+    public function __construct($name, array $cards = [])
     {
-        $this->name = $name;
-        $this->cards = CardsCollection::make($cards);
+        $this->name     = $name;
+        $this->cards    = CardsCollection::make($cards);
         $this->captured = new CardsCollection();
     }
 
+    /**
+     * Add a card to the player's main collection of cards
+     *
+     * @param Card $card
+     */
     public function acceptCard(Card $card)
     {
         $this->cards->push($card);
     }
 
+    /**
+     * Get the number of cards in the main collection
+     * @return int
+     */
     public function cardsCount()
     {
         return $this->cards->count();
     }
 
+    /**
+     * Play the next card
+     * @return mixed
+     * @throws NoCardsToPlayException
+     */
     public function playCard()
     {
         if ( ! $this->hasCards()) {
             throw new NoCardsToPlayException();
         }
 
-        if ( $this->cards->isEmpty() ) {
+        if ($this->cards->isEmpty()) {
             $this->reloadFromCaptured();
         }
 
         return $this->cards->shift();
     }
 
-    public function won(Battle $battle)
+    /**
+     * Capture a collection of cards
+     *
+     * @param Collection $victory
+     */
+    public function capture(Collection $victory)
     {
-        foreach($battle->collect() as $card) {
-            $this->captured->push($card);
-        }
+        $this->captured->assimilate($victory);
     }
 
     public function capturedCount()
@@ -65,7 +83,7 @@ class Player
 
     public function hasCards()
     {
-        return (bool) ($this->cardsCount() + $this->capturedCount());
+        return (bool)($this->cardsCount() + $this->capturedCount());
     }
 
     protected function reloadFromCaptured()

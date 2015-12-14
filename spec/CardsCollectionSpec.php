@@ -16,9 +16,9 @@ class CardsCollectionSpec extends ObjectBehavior
     function it_has_a_named_constructor_which_accepts_individual_cards_as_arguments()
     {
         $collection = $this::from(
-            new Card('2','hearts'),
-            new Card('3','clubs'),
-            new Card('4','diamonds')
+            new Card('2', 'hearts'),
+            new Card('3', 'clubs'),
+            new Card('4', 'diamonds')
         );
         $collection->count()->shouldReturn(3);
     }

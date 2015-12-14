@@ -19,18 +19,28 @@ class Dealer
         $this->deck = $deck;
     }
 
+    /**
+     * Deals the cards evenly between the two players
+     *
+     * @param Player $player1
+     * @param Player $player2
+     */
     public function deal(Player $player1, Player $player2)
     {
-        $dealTo = $player1;
+        $players = collect([$player1, $player2]);
 
-        while($this->deck->hasCards())
-        {
-            $card = $this->deck->shift();
-            $dealTo->acceptCard($card);
-            $dealTo = $dealTo === $player1 ? $player2 : $player1;
+        while ($this->deck->hasCards()) {
+            $dealTo = $players->shift();
+            $dealTo->acceptCard($this->deck->shift());
+            $players->push($dealTo);
         }
     }
 
+    /**
+     * Shuffle the deck of cards
+     *
+     * @return $this
+     */
     public function shuffle()
     {
         $this->deck = $this->deck->shuffle();

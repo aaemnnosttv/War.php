@@ -6,8 +6,10 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use War\Battle;
 use War\Card;
+use War\CardsCollection;
 use War\Exceptions\NoCardsToPlayException;
 use War\Player;
+use War\Round;
 
 class PlayerSpec extends ObjectBehavior
 {
@@ -41,11 +43,11 @@ class PlayerSpec extends ObjectBehavior
         $this->cardsCount()->shouldBe(0);
     }
 
-    function it_accepts_all_cards_from_a_won_battle()
+    function it_captures_a_collection_of_cards_from_a_victorious_round()
     {
         $this->beConstructedWith(['Winner', [new Card('A', 'spades')]]);
 
-        $this->won($this->getVictoriousBattle());
+        $this->capture($this->getVictoriousRound()->cardsPlayed());
 
         $this->capturedCount()->shouldBe(2);
     }
@@ -67,14 +69,13 @@ class PlayerSpec extends ObjectBehavior
     {
         $this->cardsCount()->shouldBe(0);
 
-        $battle->beADoubleOf(Battle::class);
-        $battle->collect()->willReturn([
-           new Card('A', 'spades'),
-           new Card('2', 'spades'),
+        $cards = CardsCollection::make([
+            new Card('A', 'spades'),
+            new Card('2', 'spades'),
         ]);
 
         $this->capturedCount()->shouldBe(0);
-        $this->won($battle);
+        $this->capture($cards);
         $this->capturedCount()->shouldBe(2);
 
         $this->playCard(); // reloads from captured and plays
@@ -82,19 +83,18 @@ class PlayerSpec extends ObjectBehavior
     }
 
     /**
-     * @return Battle
+     * @return Round
      */
-    protected function getVictoriousBattle()
+    protected function getVictoriousRound()
     {
-        $winner = $this->getWrappedObject();
-        $winner->acceptCard(new Card('A', 'spades'));
+        $winner = new Player('Player 1', [new Card('A', 'spades')]);
 
-        $battle  = new Battle(
+        $round = new Round(
             $winner,
             new Player('Loser', [new Card('2', 'clubs')])
         );
-        $battle->fight();
+        $round->play();
 
-        return $battle;
+        return $round;
     }
 }

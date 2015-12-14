@@ -35,16 +35,16 @@ class GameSpec extends ObjectBehavior
     {
         $this->beConstructedWith(
             new Player('One', [
-                new Card('A','spades'),
-                new Card('A','clubs'),
-                new Card('A','hearts'),
-                new Card('A','diamonds')
+                new Card('A', 'spades'),
+                new Card('A', 'clubs'),
+                new Card('A', 'hearts'),
+                new Card('A', 'diamonds')
             ]),
             new Player('Two', [
-                new Card('2','spades'),
-                new Card('2','clubs'),
-                new Card('2','hearts'),
-                new Card('2','diamonds')
+                new Card('2', 'spades'),
+                new Card('2', 'clubs'),
+                new Card('2', 'hearts'),
+                new Card('2', 'diamonds')
             ]),
             new Dealer(new Deck)
         );
