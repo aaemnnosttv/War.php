@@ -23,14 +23,14 @@ class CardPair implements Arrayable
 
     /**
      * Get the higher card of the pair, or false if equivalent
-     * @return bool|mixed|Card
+     * @return Card|bool
      */
     public function highCard()
     {
-        if ($this->player1->value() > $this->player2->value()) {
+        if ($this->player1->value > $this->player2->value) {
             return $this->player1;
         }
-        if ($this->player1->value() < $this->player2->value()) {
+        if ($this->player1->value < $this->player2->value) {
             return $this->player2;
         }
 
