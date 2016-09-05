@@ -3,8 +3,9 @@
 namespace War;
 
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Round
+class Round implements Arrayable
 {
     /**
      * @var Player
@@ -94,4 +95,8 @@ class Round
             ;
     }
 
+    public function toArray()
+    {
+        return $this->cardsPlayed()->all();
+    }
 }
