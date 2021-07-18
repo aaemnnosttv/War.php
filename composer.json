@@ -1,6 +1,7 @@
 {
     "name": "aaemnnosttv/war",
     "description": "A War (the card game) engine",
+    "license": "MIT",
     "require": {
         "php": ">=7.3"
     },
