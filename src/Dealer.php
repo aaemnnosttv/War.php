@@ -27,12 +27,12 @@ class Dealer
      */
     public function deal(Player $player1, Player $player2)
     {
-        $players = new Collection([$player1, $player2]);
+        $players = [$player1, $player2];
 
         while ($this->deck->hasCards()) {
-            $dealTo = $players->shift();
+            list($dealTo, $next) = $players;
             $dealTo->acceptCard($this->deck->shift());
-            $players->push($dealTo);
+            $players = [$next, $dealTo];
         }
     }
 
