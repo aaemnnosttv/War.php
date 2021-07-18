@@ -2,7 +2,7 @@
 
 namespace War;
 
-class Round
+class Round implements \JsonSerializable
 {
     /**
      * @var Player
@@ -95,5 +95,10 @@ class Round
     public function toArray()
     {
         return $this->cardsPlayed()->all();
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

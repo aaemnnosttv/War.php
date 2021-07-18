@@ -2,7 +2,7 @@
 
 namespace War;
 
-class CardPair
+class CardPair implements \JsonSerializable
 {
     /**
      * @var Card
@@ -46,5 +46,10 @@ class CardPair
             $this->player1,
             $this->player2
         ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
