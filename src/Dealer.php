@@ -27,7 +27,7 @@ class Dealer
      */
     public function deal(Player $player1, Player $player2)
     {
-        $players = collect([$player1, $player2]);
+        $players = new Collection([$player1, $player2]);
 
         while ($this->deck->hasCards()) {
             $dealTo = $players->shift();
@@ -43,7 +43,7 @@ class Dealer
      */
     public function shuffle()
     {
-        $this->deck = $this->deck->shuffle();
+        $this->deck->shuffle();
 
         return $this;
     }

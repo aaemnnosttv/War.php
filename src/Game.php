@@ -2,7 +2,6 @@
 
 namespace War;
 
-use Illuminate\Support\Collection;
 use War\Exceptions\NoCardsToPlayException;
 
 class Game

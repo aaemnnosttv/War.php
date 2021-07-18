@@ -2,8 +2,6 @@
 
 namespace War;
 
-use Illuminate\Support\Collection;
-
 class Round
 {
     /**

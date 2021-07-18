@@ -22,4 +22,13 @@ class CardsCollectionSpec extends ObjectBehavior
         );
         $collection->count()->shouldReturn(3);
     }
+
+    function it_can_merge_a_list_with_itself()
+    {
+        $this->beConstructedWith([1,2,3]);
+
+        $this->merge([4,5,6]);
+
+        $this->all()->shouldBe([1,2,3,4,5,6]);
+    }
 }

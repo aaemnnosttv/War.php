@@ -2,7 +2,6 @@
 
 namespace War;
 
-use Illuminate\Support\Collection;
 use War\Exceptions\NoCardsToPlayException;
 
 class Player
@@ -73,7 +72,7 @@ class Player
      */
     public function capture(Collection $victory)
     {
-        $this->captured->assimilate($victory);
+        $this->captured->merge($victory);
     }
 
     public function capturedCount()
@@ -88,7 +87,7 @@ class Player
 
     protected function reloadFromCaptured()
     {
-        $this->cards = $this->cards->make($this->captured->shuffle()->all());
+        $this->cards = CardsCollection::make($this->captured->shuffle());
         $this->captured->toZero();
     }
 }
