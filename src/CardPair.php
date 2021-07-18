@@ -2,9 +2,7 @@
 
 namespace War;
 
-use Illuminate\Contracts\Support\Arrayable;
-
-class CardPair implements Arrayable
+class CardPair
 {
     /**
      * @var Card

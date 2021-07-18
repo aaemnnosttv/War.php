@@ -3,9 +3,8 @@
 namespace War;
 
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Support\Arrayable;
 
-class Round implements Arrayable
+class Round
 {
     /**
      * @var Player
