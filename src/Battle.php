@@ -75,7 +75,7 @@ class Battle
     public function collect()
     {
         return $this->pairs
-            ->map(function ($pair) {
+            ->map(function (CardPair $pair) {
                 return $pair->toArray();
             })
             ->flatten()
