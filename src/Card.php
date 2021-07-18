@@ -27,6 +27,6 @@ class Card
     {
         $this->face  = $face;
         $this->suit  = $suit;
-        $this->value = array_get($this->faceLookup, $face, (int) $face);
+        $this->value = $this->faceLookup[$face] ?? (int) $face;
     }
 }
