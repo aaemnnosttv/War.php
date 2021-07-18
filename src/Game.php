@@ -78,7 +78,7 @@ class Game
             ? $this->player1
             : $this->player2;
 
-        $this->winner = $this->player1 == $this->loser
+        $this->winner = $this->player1 === $this->loser
             ? $this->player2
             : $this->player1;
     }
